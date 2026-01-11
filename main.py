@@ -1,23 +1,21 @@
 from calculator_program.calculator import Calculator
+from calculator_program.calculator_enum import CalculatorOptionStr
+from calculator_program.helper_function import run_calculation
 import pyinputplus as pyip
-
-def run_calculation(operation_selection, calculator_obj):
-    if operation_selection == 1:
-        return calculator_obj.add()
 
 def main():
     print("Calculator Program Booted:\n")
-    print("*Please note calculator only works for 2 numbers.")
-    
-    calculator_options = [1]
+    print("*Please note calculator only works for 2 numbers.\n")
+
+    operation_selection_menu = """Please select operation: +, -, *,/:\n"""
 
     while True:
-        operation_selection = pyip.inputInt("Please select operation: (1) Add\n")
-    
-        if operation_selection not in calculator_options:
-            print("Incorrect operation selection. Please try again.\n")
-        else:
+        operation_selection = pyip.inputChoice(prompt=operation_selection_menu, choices=["+", "-", "*", "/"])
+
+        if any(operation_selection == operation.value for operation in CalculatorOptionStr):
             break
+        else:
+            print("Incorrect operation selection. Please try again.\n")
         
     x_value = pyip.inputFloat("Please enter the first number:\n")
     y_value = pyip.inputFloat("Please enter the second number:\n")
@@ -26,7 +24,7 @@ def main():
 
     result = run_calculation(operation_selection=operation_selection, calculator_obj=calculator_obj)
 
-    print(f"The result is: {result}")
+    print(f"{x_value} {operation_selection} {y_value} = {result}")
 
 if __name__ == "__main__":
     main()
