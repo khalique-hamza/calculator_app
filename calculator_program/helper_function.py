@@ -1,10 +1,14 @@
 def run_calculation(operation_selection, calculator_obj):
-    if operation_selection == "+":
-        return calculator_obj.add()
-    elif operation_selection == "-":
-        return calculator_obj.subtract()
-    elif operation_selection == "*":
-        return calculator_obj.multiply()
-    elif operation_selection == "/":
-        return calculator_obj.divide()
-
+    operations = {
+        "+": calculator_obj.add,
+        "-": calculator_obj.subtract,
+        "*": calculator_obj.multiply,
+        "/": calculator_obj.divide,
+    }
+    
+    # Get the function from the dictionary and call it ()
+    action = operations.get(operation_selection)
+    
+    if action:
+        return action()
+    return None
