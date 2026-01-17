@@ -1,0 +1,3 @@
+class NegativeError(Exception):
+    pass
+

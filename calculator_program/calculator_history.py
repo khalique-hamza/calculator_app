@@ -1,5 +1,6 @@
 import csv
 from dataclasses import dataclass
+from calculator_program.errors import NegativeError
 import os
 
 @dataclass
@@ -45,17 +46,27 @@ class CalculationResultHistory:
 
     def get_nth_calculation_history(self, n):
         if n < 0:
-            return "NEGATIVE ERROR."
+            raise NegativeError("Negative Error: Index position cannot be negative.")
         
         if n in self.calculation_history_map.keys():
             return self.parse_calculation_result(self.calculation_history_map[n])
         else:
-            print("Error")
+            raise ValueError("Invalid index: Value not found in map.")
+        
+    def get_all_calculation_history(self):
+        calculation_history_map = self.get_calculation_history_map()
+        if not calculation_history_map:
+            return "No history found."
+        elif len(calculation_history_map) == 0:
+            return self.get_last_calculation_history()
+        for calculation_history_idx in calculation_history_map.keys():
+            print(self.get_nth_calculation_history(calculation_history_idx))
+            
 
     def get_last_calculation_history(self):
         calculation_history_map = self.get_calculation_history_map()
         if not calculation_history_map:
-            return "No history"
+            return "No history found."
         return self.parse_calculation_result(calculation_history_map[0])
 
     def build_history_map(self):

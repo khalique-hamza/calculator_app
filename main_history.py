@@ -5,6 +5,6 @@ history_obj.load_calculation_history_from_file()
 history_obj.preprocess_nested_list()
 history_obj.build_history_map()
 print(history_obj.calculation_history_map)
-
 print(history_obj.get_last_calculation_history())
-print(history_obj.get_n_calculation_history(2))
+print(history_obj.get_nth_calculation_history(1))
+print(history_obj.get_all_calculation_history())
